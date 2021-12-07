@@ -1,8 +1,12 @@
 //! This is file is meant for the first screen, i.e., ListScreen.
 //! Parts of the code have been given. Complete the remaining.
 //? You can refactor the code if needed
+// import 'package:/material.dart';
+import 'package:midterm/models/mock_data.dart';
 
+import 'note_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:midterm/models/note.dart';
 
 // import 'note_screen.dart';
 // import '../models/note.dart';
@@ -22,7 +26,7 @@ class _ListScreenState extends State<ListScreen> {
           CircleAvatar(
             backgroundColor: Colors.blue.shade200,
             child: Text(
-              '4',
+              '3',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
             ),
           ),
@@ -32,7 +36,7 @@ class _ListScreenState extends State<ListScreen> {
         ],
       ),
       body: ListView.separated(
-        itemCount: 4,
+        itemCount: noteList.length,
         separatorBuilder: (context, index) => Divider(
           color: Colors.blueGrey,
         ),
@@ -42,6 +46,8 @@ class _ListScreenState extends State<ListScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+               
+
                 IconButton(
                   icon: Icon(Icons.edit, color: Colors.blue),
                   onPressed: () {},
@@ -51,15 +57,23 @@ class _ListScreenState extends State<ListScreen> {
                     Icons.delete,
                     color: Colors.blue,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    noteList.removeAt(index);
+                  },
                 ),
               ],
             ),
           ),
-          title: Text('Note title'),
-          subtitle: Text('Note content'),
-          onTap: () {},
-          onLongPress: () {},
+           title: Text(noteList[index].title),
+           subtitle: Text(noteList[index].subtitle),
+          onTap: () {Navigator.pop(context,NoteScreen);},
+          
+          onLongPress: ()
+           {setState(() {
+             
+             icon: Icon(Icons.delete);
+             icon: Icon(Icons.edit);
+           });},
         ),
       ),
       floatingActionButton: Row(
@@ -68,11 +82,18 @@ class _ListScreenState extends State<ListScreen> {
           FloatingActionButton(
               child: Icon(Icons.unfold_less),
               tooltip: 'Show less. Hide notes content',
-              onPressed: () {}),
+              onPressed: () {
+               setState(() {
+                title: Text(noteList[3].title);
+               });
+              }),
           FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: 'Add a new note',
-            onPressed: () {},
+            onPressed: () {
+            
+              
+            },
           ),
         ],
       ),
